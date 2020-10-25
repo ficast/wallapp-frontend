@@ -1,19 +1,24 @@
-import React, { ReactElement, useEffect, useContext, useState } from "react";
-import { ImHome } from "react-icons/im";
+import React, { ReactElement, useEffect, useState } from "react";
+import Loading from "../atoms/Loading";
 import Header from "../organisms/Header";
+import Post from "../organisms/Post";
 import Api from "../services/Api";
 
-export default (): ReactElement => {
+function Home(): ReactElement {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  // const [user, setUser] = useState("");
+  const [posts, setPosts] = useState([
+    { title: "", body: "", author: { name: "" } },
+  ]);
+  const [error, setError] = useState(false);
 
   const getPosts = async (): Promise<void> => {
     try {
-      const response = await Api.getPosts();
+      const response = await Api.getPosts(page);
       setPosts(response);
-      console.log(response);
     } catch (err) {
+      setError(true);
       console.log(err);
     }
     setLoading(false);
@@ -23,10 +28,19 @@ export default (): ReactElement => {
     getPosts();
   }, []);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Header />
-      {loading && posts.forEach(({ title }) => <div>{title}</div>)}
+      {posts.map(
+        ({ title, body, author }, index): ReactElement => (
+          <Post key={index} title={title} body={body} author={author} />
+        )
+      )}
+      ;
     </>
   );
-};
+}
+
+export default Home;
