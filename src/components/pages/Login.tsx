@@ -1,74 +1,106 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { ReactElement } from "react-dom/node_modules/@types/react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../theme/nice";
+import Loading from "../atoms/Loading";
+import WallLogo from "../molecules/WallLogo";
 import Api from "../services/Api";
 
 export default function Login(): ReactElement {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isVisitor, setIsVisitor] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState("");
 
   function validateForm(): boolean {
-    return email.length > 0 && password.length > 0;
+    return email.length > 3 && password.length > 6;
   }
 
-  function handleSubmit(event: FormEvent) {
+  const history = useHistory();
+
+  function redirect(pathname: string, state?: string | null): void {
+    history.push({ pathname, state });
+  }
+
+  async function authUser(): Promise<void> {
+    const response = await Api.authUser({ password, email });
+    console.log(response);
+  }
+
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    // Api.loginAuth(password, email);
+    await authUser();
   }
 
-  return (
-    <Container>
-      <FormContainer onSubmit={handleSubmit}>
-        <Form>
-          <Label>Email</Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form>
-        <Form>
-          <Label>Password</Label>
-          <Form.Control
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </Form>
-        <Buttons>
-          <Button
-            style={buttonStyle}
-            block
-            disabled={!validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-          <Button
-            style={buttonStyle}
-            block
-            onClick={() => setIsVisitor(true)}
-            type="button"
-          >
-            Sign Up
-          </Button>
-          <Button
-            style={buttonStyle}
-            block
-            onClick={() => setIsVisitor(true)}
-            type="button"
-          >
-            Visitor
-          </Button>
-        </Buttons>
-      </FormContainer>
-      {isVisitor && <Redirect to="/home" />}
-    </Container>
+  function getLocalToken(): void {
+    const TOKEN = localStorage.getItem("TOKEN");
+    if (typeof TOKEN === "string" && TOKEN.length > 0) {
+      setToken(TOKEN);
+      redirect("/home", TOKEN);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getLocalToken();
+  });
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <>
+      <Container>
+        <WallLogo size="15em" />
+        <FormContainer>
+          <Form style={{ width: "90%" }}>
+            <Form.Control
+              autoFocus
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              style={inputStyle}
+            />
+          </Form>
+          <Form style={{ width: "90%" }}>
+            <Form.Control
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              style={inputStyle}
+            />
+          </Form>
+          <Buttons>
+            <Button
+              style={buttonStyle}
+              block
+              disabled={!validateForm()}
+              onClick={(e) => handleSubmit(e)}
+              type="submit"
+            >
+              Login
+            </Button>
+            <Button
+              style={buttonStyle}
+              onClick={() => redirect("/signup")}
+              type="button"
+            >
+              Sign Up
+            </Button>
+            <Button
+              style={buttonStyle}
+              onClick={() => redirect("/home")}
+              type="button"
+            >
+              Visitor
+            </Button>
+          </Buttons>
+        </FormContainer>
+      </Container>
+    </>
   );
 }
 
@@ -77,35 +109,36 @@ const Container = styled.div`
   border: 1px solid ${theme.colors.primary[500]};
   border-radius: 5px;
   display: flex;
-  justify-content: center;
   margin: auto;
   padding: 2em;
-  background-color: ${theme.colors.secondary[400]};
+  flex-direction: column;
   width: 20em;
 `;
 
 const FormContainer = styled.div`
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: auto;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Buttons = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 1.5em;
+  width: 100%;
 `;
 
 const buttonStyle = {
-  fontFamily: theme.font.family.semiBold,
+  fontFamily: theme.font.family.OpenSans,
   fontSize: theme.sizes[300],
   padding: "0 1em",
 };
 
-const Label = styled.h3`
-  font-family: ${theme.font.family.semiBold};
-  font-size: ${theme.sizes[300]};
-  margin: 1em auto 0 auto;
-`;
+const inputStyle = {
+  marginLeft: "-5px",
+  width: "100%",
+  height: "2em",
+};
