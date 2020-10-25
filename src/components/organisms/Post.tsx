@@ -1,28 +1,60 @@
 import React, { ReactElement } from "react";
-import { ImHome } from "react-icons/im";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../theme/nice";
 
-type Post = {
+type PostProps = {
   title: string;
   body: string;
-  author: string;
+  author?: { name: string };
 };
 
-export default ({ title, body, author }: Post): ReactElement => {
+const Post = ({
+  title,
+  body,
+  author = { name: "" },
+}: PostProps): ReactElement => {
   return (
     <Container>
-      <h1>{title}</h1>
-      <p>{body}</p>
-      <h3>{author}</h3>
+      <Title>{title}</Title>
+      <Body>{`"${body}"`}</Body>
+      <Author>{author.name}</Author>
     </Container>
   );
 };
 
+export default Post;
+
 const Container = styled.div`
+  padding: 1em;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
   background-color: ${theme.colors.secondary[100]};
+  width: 85%;
+  align-self: center;
+  text-align: left;
+  margin: 1em;
+
+  @media (min-width: 750px) and (max-width: 1199px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 40%;
+  }
+`;
+
+const Title = styled.h3`
+  font-family: ${theme.font.family.OpenSans};
+`;
+
+const Body = styled.p`
+  font-style: italic;
+  font-family: ${theme.font.family.OpenSans};
+`;
+
+const Author = styled.h4`
+  align-self: flex-end;
+  font-family: ${theme.font.family.OpenSans};
 `;
