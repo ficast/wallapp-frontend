@@ -1,17 +1,29 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { isJSDocAuthorTag } from "typescript";
 import Loading from "../atoms/Loading";
+import CreatePost from "../organisms/CreatePost";
 import Header from "../organisms/Header";
 import Post from "../organisms/Post";
 import Api from "../services/Api";
 
 function Home(): ReactElement {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [userIsAuth, setUserIsAuth] = useState(false);
   const [page, setPage] = useState(0);
-  // const [user, setUser] = useState("");
+  const [error, setError] = useState(false);
+  const [userToken, setUserToken] = useState({
+    token: "",
+    email: "",
+    name: "",
+    id: "",
+  });
   const [posts, setPosts] = useState([
     { title: "", body: "", author: { name: "" } },
   ]);
-  const [error, setError] = useState(false);
+
+  const history = useHistory();
+  const { state } = history.location;
 
   const getPosts = async (): Promise<void> => {
     try {
@@ -21,18 +33,29 @@ function Home(): ReactElement {
       setError(true);
       console.log(err);
     }
-    setLoading(false);
+    return setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
+    if (typeof state === "string") {
+      setUserToken(JSON.parse(state));
+    }
     getPosts();
+    setUserIsAuth(true);
   }, []);
 
   return loading ? (
     <Loading />
   ) : (
     <>
-      <Header />
+      <Header username={userToken.name} />
+      {userIsAuth && (
+        <CreatePost
+          onSubmit={getPosts}
+          token={userToken}
+        />
+      )}
       {posts.map(
         ({ title, body, author }, index): ReactElement => (
           <Post key={index} title={title} body={body} author={author} />
