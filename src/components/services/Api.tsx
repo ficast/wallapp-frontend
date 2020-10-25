@@ -13,6 +13,13 @@ type authUserParams = {
   email: string;
 };
 
+type createPostParams = {
+  title: string;
+  body: string;
+  author: string;
+  token: string;
+};
+
 export default class Api {
   static createUser = async (params: createUserParams) => {
     await axios.post(`${API_BASE_URL}/user`, params);
@@ -29,5 +36,9 @@ export default class Api {
   static getPosts = async (page: number = 0): Promise<any> => {
     const response = await axios.get(`${API_BASE_URL}/post/?page=${page}`);
     return response.data;
+  };
+
+  static createPòst = async (params: createPostParams) => {
+    await axios.post(`${API_BASE_URL}/post`, params);
   };
 }
