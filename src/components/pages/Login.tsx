@@ -8,7 +8,7 @@ import Loading from "../atoms/Loading";
 import WallLogo from "../molecules/WallLogo";
 import Api from "../services/Api";
 
-export default function Login(): ReactElement {
+function Login(): ReactElement {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
@@ -18,15 +18,26 @@ export default function Login(): ReactElement {
     return email.length > 3 && password.length > 6;
   }
 
-  const history = useHistory();
-
-  function redirect(pathname: string, state?: string | null): void {
-    history.push({ pathname, state });
-  }
-
   async function authUser(): Promise<void> {
-    const response = await Api.authUser({ password, email });
-    console.log(response);
+    setLoading(true);
+    try {
+      const response = await Api.authUser({ password, email });
+
+      const TOKEN = JSON.stringify({
+        token: response.token,
+        name: response.data.name,
+        email: response.data.email,
+        id: response.data.id
+      });
+
+      setToken(TOKEN);
+      localStorage.setItem("THE_WALL_TOKEN", TOKEN);
+
+      redirectAuthUser();
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -34,18 +45,33 @@ export default function Login(): ReactElement {
     await authUser();
   }
 
-  function getLocalToken(): void {
-    const TOKEN = localStorage.getItem("TOKEN");
-    if (typeof TOKEN === "string" && TOKEN.length > 0) {
-      setToken(TOKEN);
-      redirect("/home", TOKEN);
+  function tokenVerification(): void {
+    const storageToken: string | null = localStorage.getItem("THE_WALL_TOKEN");
+    if (typeof storageToken === "string") {
+      setToken(storageToken);
     }
+    return setLoading(false);
+  }
+
+  const history = useHistory();
+
+  function redirect(pathname: string, state?: string | null): void {
+    history.push({ pathname, state });
+  }
+
+  function redirectAuthUser(): void {
+    redirect("/home", token);
     setLoading(false);
   }
 
   useEffect(() => {
-    getLocalToken();
-  });
+    setToken("");
+    tokenVerification();
+  }, []);
+
+  useEffect(() => {
+    token !== "" && redirectAuthUser();
+  }, [token]);
 
   return loading ? (
     <Loading />
@@ -103,6 +129,8 @@ export default function Login(): ReactElement {
     </>
   );
 }
+
+export default Login;
 
 const Container = styled.div`
   align-items: center;
