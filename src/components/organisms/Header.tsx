@@ -1,27 +1,43 @@
 import React, { ReactElement } from "react";
-import { ImHome } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { GiStoneWall as WallIcon } from "react-icons/gi";
+import { MdArrowBack as ArrowBackIcon } from "react-icons/md";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import theme from "../../theme/nice"
+import theme from "../../theme/nice";
 
-export default (): ReactElement => {
+const Header = (): ReactElement => {
+  const history = useHistory();
+
   return (
-    <Header>
-      <Title>Wall-App</Title>
+    <Container>
+      <ArrowBackIcon
+        size={"2em"}
+        color={theme.colors.primary[300]}
+        onClick={() => history.goBack()}
+        style={{ cursor: "pointer" }}
+      />
+      <Title>The Wall</Title>
       <Link to="/home">
-        <ImHome size={'2em'} color={theme.colors.secondary[200]} />
+        <WallIcon
+          size={"2em"}
+          color={theme.colors.primary[300]}
+          onClick={() => history.push("/home")}
+        />
       </Link>
-    </Header>
+    </Container>
   );
 };
 
-const Header = styled.div`
+export default Header;
+
+const Container = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  background-color: ${theme.colors.primary[500]}
+  justify-content: space-around;
 `;
 
 const Title = styled.h1`
-  color: ${theme.colors.secondary[200]}
+  color: ${theme.colors.primary[300]};
+  font-family: ${theme.font.family.OpenSans};
+  font-weight: ${theme.font.weight.bold};
 `;
