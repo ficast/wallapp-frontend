@@ -1,5 +1,6 @@
 const colors = {
   primary: {
+    100: "red",
     200: "#FF9B71",
     300: "#FFFD82",
     400: "#1B998B",
