@@ -66,7 +66,7 @@ const CreatePost = ({ onSubmit, token }: CreatePostProps): ReactElement => {
               placeholder="Insert your message here"
             />
           </Form>
-          {error && <Text>{error}</Text>}
+          {error && <ErrorMsg>{error}</ErrorMsg>}
           <Buttons>
             <Button
               style={buttonStyle}
@@ -144,8 +144,8 @@ const inputStyle = {
   margin: "1em auto",
 };
 
-const Text = styled.p`
+const ErrorMsg = styled.p`
   color: ${theme.colors.primary[100]};
   font-family: ${theme.font.family.OpenSans};
-  font-weight: ${theme.font.weight.regular};
+  font-weight: ${theme.font.weight.bold};
 `;
