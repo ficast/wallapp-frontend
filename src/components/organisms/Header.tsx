@@ -5,7 +5,11 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../theme/nice";
 
-const Header = (): ReactElement => {
+type HeaderProps = {
+  username?: string;
+};
+
+const Header = ({ username }: HeaderProps): ReactElement => {
   const history = useHistory();
 
   return (
@@ -16,7 +20,10 @@ const Header = (): ReactElement => {
         onClick={() => history.goBack()}
         style={{ cursor: "pointer" }}
       />
-      <Title>The Wall</Title>
+      <Title>
+        <User>{username || "Anonymous"}</User>
+        <Text>, wellcome to The Wall</Text>
+      </Title>
       <Link to="/home">
         <WallIcon
           size={"2em"}
@@ -36,8 +43,18 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const Title = styled.h1`
+const User = styled.h3`
   color: ${theme.colors.primary[300]};
   font-family: ${theme.font.family.OpenSans};
   font-weight: ${theme.font.weight.bold};
+`;
+
+const Text = styled.h3`
+  color: ${theme.colors.primary[300]};
+  font-family: ${theme.font.family.OpenSans};
+  font-weight: ${theme.font.weight.regular};
+`;
+
+const Title = styled.div`
+  display: flex;
 `;
