@@ -17,7 +17,7 @@ export default function Login(): ReactElement {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [userCreated, setUserCreated] = useState(false);
 
   const history = useHistory();
@@ -27,11 +27,17 @@ export default function Login(): ReactElement {
     return re.test(String(email).toLowerCase());
   }
 
-  function validadePassword(pass: string, confirmPass: string): boolean {
+  function validatePassword(pass: string, confirmPass: string): boolean {
     return pass === confirmPass && pass.length >= 6;
   }
 
   async function createUser(): Promise<void> {
+    setError("");
+
+    if (!validateEmail(email) || !validatePassword(password, confirmPassword)) {
+      setError("Invalid Password or Email");
+    }
+
     try {
       await Api.createUser({ name, password, email });
       setUserCreated(true);
@@ -125,6 +131,7 @@ export default function Login(): ReactElement {
           <TextBold>{email}</TextBold>
         </>
       )}
+      {error && <ErrorMsg>{error}</ErrorMsg>}
     </Container>
   );
 }
@@ -185,6 +192,12 @@ const Text = styled.p`
 
 const TextBold = styled.p`
   color: ${theme.colors.primary[300]};
+  font-family: ${theme.font.family.OpenSans};
+  font-weight: ${theme.font.weight.bold};
+`;
+
+const ErrorMsg = styled.p`
+  color: ${theme.colors.primary[100]};
   font-family: ${theme.font.family.OpenSans};
   font-weight: ${theme.font.weight.bold};
 `;
