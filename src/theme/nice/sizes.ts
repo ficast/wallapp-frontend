@@ -1,7 +1,10 @@
-export default {
-    100: '8px',
-    200: '12px',
-    300: '16px',
-    400: '20px',
-    500: '24px',
+const sizes = {
+  100: "8px",
+  200: "14px",
+  300: "20px",
+  400: "32px",
+  500: "48px",
+  em: "em",
 };
+
+export default sizes;

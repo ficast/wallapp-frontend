@@ -1,7 +1,12 @@
-export default {
-    family: {
-        regular: 'OpenSans-Regular',
-        bold: 'OpenSans-Bold',
-        semiBold: 'OpenSans-SemiBold',
-    },
+const font = {
+  family: {
+    OpenSans: "Open Sans",
+  },
+  weight: {
+    bold: 700,
+    semiBold: 600,
+    regular: 400,
+  },
 };
+
+export default font;
