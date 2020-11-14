@@ -47,12 +47,20 @@ const User = styled.h3`
   color: ${theme.colors.primary[300]};
   font-family: ${theme.font.family.OpenSans};
   font-weight: ${theme.font.weight.bold};
+  
+  @media(max-width: 500px) {
+    font-size: ${theme.sizes[200]}
+  }
 `;
 
 const Text = styled.h3`
   color: ${theme.colors.primary[300]};
   font-family: ${theme.font.family.OpenSans};
   font-weight: ${theme.font.weight.regular};
+
+  @media(max-width: 500px) {
+    font-size: ${theme.sizes[200]}
+  }
 `;
 
 const Title = styled.div`
