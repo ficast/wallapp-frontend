@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { isJSDocAuthorTag } from "typescript";
+import { useHistory } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import CreatePost from "../organisms/CreatePost";
 import Header from "../organisms/Header";
@@ -40,9 +39,9 @@ function Home(): ReactElement {
     setLoading(true);
     if (typeof state === "string") {
       setUserToken(JSON.parse(state));
+      setUserIsAuth(true);
     }
     getPosts();
-    setUserIsAuth(true);
   }, []);
 
   return loading ? (
@@ -50,12 +49,7 @@ function Home(): ReactElement {
   ) : (
     <>
       <Header username={userToken.name} />
-      {userIsAuth && (
-        <CreatePost
-          onSubmit={getPosts}
-          token={userToken}
-        />
-      )}
+      {userIsAuth && <CreatePost onSubmit={getPosts} token={userToken} />}
       {posts.map(
         ({ title, body, author }, index): ReactElement => (
           <Post key={index} title={title} body={body} author={author} />

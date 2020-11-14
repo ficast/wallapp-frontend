@@ -19,11 +19,15 @@ const CreatePost = ({ onSubmit, token }: CreatePostProps): ReactElement => {
 
   async function createNewPost(): Promise<void> {
     setError("");
+    console.log({
+      title,
+      body,
+      token: token.token,
+    });
     try {
       await Api.createPòst({
         title,
         body,
-        author: token.id,
         token: token.token,
       });
       setPostCreated(true);

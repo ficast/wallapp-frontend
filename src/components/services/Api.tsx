@@ -1,6 +1,9 @@
 import axios from "axios";
+import dotenv from "dotenv";
 
-const API_BASE_URL = "http://localhost:3000";
+dotenv.config();
+
+const API_BASE_URL = process.env.API_BASE_URL;
 
 type createUserParams = {
   name: string;
@@ -16,7 +19,6 @@ type authUserParams = {
 type createPostParams = {
   title: string;
   body: string;
-  author: string;
   token: string;
 };
 
@@ -34,11 +36,13 @@ export default class Api {
   };
 
   static getPosts = async (page: number = 0): Promise<any> => {
+    console.log(API_BASE_URL);
     const response = await axios.get(`${API_BASE_URL}/post/?page=${page}`);
     return response.data;
   };
 
   static createPòst = async (params: createPostParams) => {
+    console.log(params);
     await axios.post(`${API_BASE_URL}/post`, params);
   };
 }
