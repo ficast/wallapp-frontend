@@ -70,7 +70,9 @@ function Home(): ReactElement {
             style={{ cursor: "pointer" }}
           />
         )}
-        {page != lastPage - 1 && (
+        {page > lastPage - 1 ? (
+          <Title>Ops! There's no more items to show!</Title>
+        ) : (
           <MdArrowForward
             size={"2em"}
             color={theme.colors.primary[300]}
@@ -105,4 +107,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Title = styled.h3`
+  color: ${theme.colors.primary[300]};
 `;
