@@ -70,9 +70,7 @@ function Home(): ReactElement {
             style={{ cursor: "pointer" }}
           />
         )}
-        {page > lastPage - 1 ? (
-          <Title>Ops! There's no more items to show!</Title>
-        ) : (
+        {posts.length == 10 && (
           <MdArrowForward
             size={"2em"}
             color={theme.colors.primary[300]}
