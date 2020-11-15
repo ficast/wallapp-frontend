@@ -31,7 +31,9 @@ function Home(): ReactElement {
   const getPosts = async (): Promise<void> => {
     try {
       const response = await Api.getPosts(page);
-      setLastPage(response.pages - 1);
+      console.log(response);
+      console.log("page", page);
+      setLastPage(response.pages);
       setPosts(response.items);
     } catch (err) {
       setError(true);
@@ -68,7 +70,7 @@ function Home(): ReactElement {
             style={{ cursor: "pointer" }}
           />
         )}
-        {page < lastPage && (
+        {page != lastPage - 1 && (
           <MdArrowForward
             size={"2em"}
             color={theme.colors.primary[300]}
