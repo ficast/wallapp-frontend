@@ -31,8 +31,8 @@ function Home(): ReactElement {
   const getPosts = async (): Promise<void> => {
     try {
       const response = await Api.getPosts(page);
-      setPosts(response.items);
       setLastPage(response.pages - 1);
+      setPosts(response.items);
     } catch (err) {
       setError(true);
       console.log(err);
