@@ -32,7 +32,6 @@ export default class Api {
   };
 
   static getPosts = async (page: number = 0): Promise<any> => {
-    console.log(API_BASE_URL);
     const response = await axios.get(`${API_BASE_URL}/post/?page=${page}`);
     return response.data;
   };

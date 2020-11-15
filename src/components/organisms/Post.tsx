@@ -5,19 +5,19 @@ import theme from "../../theme/nice";
 type PostProps = {
   title: string;
   body: string;
-  author?: { name: string };
+  author?: string;
 };
 
 const Post = ({
   title,
   body,
-  author = { name: "" },
+  author,
 }: PostProps): ReactElement => {
   return (
     <Container>
       <Title>{title}</Title>
       <Body>{`"${body}"`}</Body>
-      <Author>{author.name}</Author>
+      {author && <Author>{author}</Author>}
     </Container>
   );
 };
