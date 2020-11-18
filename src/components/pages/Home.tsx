@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Loading from "../atoms/Loading";
 import CreatePost from "../organisms/CreatePost";
@@ -13,7 +13,7 @@ function Home(): ReactElement {
   const [loading, setLoading] = useState(false);
   const [userIsAuth, setUserIsAuth] = useState(false);
   const [page, setPage] = useState(0);
-  const [lastPage, setLastPage] = useState(1);
+  const [pages, setPages] = useState(0);
   const [error, setError] = useState(false);
   const [userToken, setUserToken] = useState({
     token: "",
@@ -29,11 +29,12 @@ function Home(): ReactElement {
   const { state } = history.location;
 
   const getPosts = async (): Promise<void> => {
+    console.log('post n', page)
     try {
       const response = await Api.getPosts(page);
-      console.log(response);
-      console.log("page", page);
-      setLastPage(response.pages);
+      if (!pages) {
+        setPages(response.pages - 1);
+      }
       setPosts(response.items);
     } catch (err) {
       setError(true);
@@ -51,6 +52,12 @@ function Home(): ReactElement {
     getPosts();
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    console.log('agora é', page)
+    getPosts();
+  }, [page]);
+
   return loading ? (
     <Loading />
   ) : (
@@ -63,27 +70,23 @@ function Home(): ReactElement {
             size={"2em"}
             color={theme.colors.primary[300]}
             onClick={async () => {
-              setLoading(true);
               setPage(page - 1);
-              getPosts();
             }}
             style={{ cursor: "pointer" }}
           />
         )}
-        {posts.length == 10 && (
+        {page < pages && (
           <MdArrowForward
             size={"2em"}
             color={theme.colors.primary[300]}
             onClick={() => {
-              setLoading(true);
               setPage(page + 1);
-              getPosts();
             }}
             style={{ cursor: "pointer" }}
           />
         )}
       </Container>
-      {posts.map(
+      {posts && posts.map(
         ({ title, body, author }, index): ReactElement => {
           return (
             <Post
