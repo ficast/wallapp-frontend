@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://wall-app-api-br.herokuapp.com"
 
 type createUserParams = {
   name: string;
@@ -16,7 +15,6 @@ type authUserParams = {
 type createPostParams = {
   title: string;
   body: string;
-  author: string;
   token: string;
 };
 
@@ -39,6 +37,7 @@ export default class Api {
   };
 
   static createPòst = async (params: createPostParams) => {
+    console.log(params);
     await axios.post(`${API_BASE_URL}/post`, params);
   };
 }
