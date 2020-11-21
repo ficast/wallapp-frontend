@@ -10,7 +10,7 @@ This is a FrontEnd App created with <strong>ReactJS</strong> and <strong>TypeScr
 
 ## Design pattern
 
-Used Atomic Design Pattern as it follows:
+Used [Atomic Design Pattern](https://atomicdesign.bradfrost.com/chapter-2/) as it follows:
 
 <img src="src/assets/atomic.png">
 
