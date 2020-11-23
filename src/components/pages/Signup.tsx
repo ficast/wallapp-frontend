@@ -35,7 +35,7 @@ export default function Login(): ReactElement {
     setError("");
 
     if (!validateEmail(email) || !validatePassword(password, confirmPassword)) {
-      setError("Invalid Password or Email");
+      return setError("Invalid Password or Email");
     }
 
     try {
@@ -97,6 +97,7 @@ export default function Login(): ReactElement {
                 type="password"
                 style={inputStyle}
                 placeholder="Password"
+                minLength={6}
               />
             </Form>
             <Form style={{ width: "100%" }}>
@@ -106,6 +107,7 @@ export default function Login(): ReactElement {
                 type="password"
                 style={inputStyle}
                 placeholder="Confirm Passowrd"
+                minLength={6}
               />
             </Form>
             <Buttons>

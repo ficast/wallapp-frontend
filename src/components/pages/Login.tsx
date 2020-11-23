@@ -15,7 +15,7 @@ function Login(): ReactElement {
   const [token, setToken] = useState("");
 
   function validateForm(): boolean {
-    return email.length > 3 && password.length > 6;
+    return email.length > 3 && password.length >= 6;
   }
 
   async function authUser(): Promise<void> {
