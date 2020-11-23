@@ -31,11 +31,23 @@ export default function Login(): ReactElement {
     return pass === confirmPass && pass.length >= 6;
   }
 
+  function validateName(name: string): boolean {
+    return name.length >= 3;
+  }
+
   async function createUser(): Promise<void> {
     setError("");
 
-    if (!validateEmail(email) || !validatePassword(password, confirmPassword)) {
-      return setError("Invalid Password or Email");
+    if (!validateName(name)) {
+      return setError("Invalid Name, must contain at least 3 characters");
+    }
+
+    if (!validateEmail(email)) {
+      return setError("Invalid Email, please try again!");
+    }
+
+    if (!validatePassword(password, confirmPassword)) {
+      return setError("Invalid Password, must contain at least 6 characters");
     }
 
     try {
