@@ -13,7 +13,6 @@ type HeaderProps = {
 
 const Header = ({ username }: HeaderProps): ReactElement => {
   const history = useHistory();
-  console.log(history);
 
   const logout = (): void => {
     username && localStorage.removeItem("THE_WALL_TOKEN");
