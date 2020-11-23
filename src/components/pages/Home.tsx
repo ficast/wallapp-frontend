@@ -29,7 +29,6 @@ function Home(): ReactElement {
   const { state } = history.location;
 
   const getPosts = async (): Promise<void> => {
-    console.log('post n', page)
     try {
       const response = await Api.getPosts(page);
       if (!pages) {
@@ -54,7 +53,6 @@ function Home(): ReactElement {
 
   useEffect(() => {
     setLoading(true);
-    console.log('agora é', page)
     getPosts();
   }, [page]);
 
