@@ -165,7 +165,6 @@ const Box = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  /* margin: auto; */
   padding: 2em;
   min-width: 30%;
   max-width: 90%;

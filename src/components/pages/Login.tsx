@@ -13,6 +13,7 @@ function Login(): ReactElement {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState("");
+  const [error, setError] = useState("");
 
   function validateForm(): boolean {
     return email.length > 3 && password.length >= 6;
@@ -20,6 +21,7 @@ function Login(): ReactElement {
 
   async function authUser(): Promise<void> {
     setLoading(true);
+    setError("");
     try {
       const response = await Api.authUser({ password, email });
 
@@ -35,7 +37,7 @@ function Login(): ReactElement {
 
       redirectAuthUser();
     } catch (err) {
-      console.log(err);
+      setError("Wrong Password or Email, please try again");
     }
     setLoading(false);
   }
@@ -125,6 +127,7 @@ function Login(): ReactElement {
             </Button>
           </Buttons>
         </FormContainer>
+        {error && <ErrorMsg>{error}</ErrorMsg> }
       </Container>
     </>
   );
@@ -170,3 +173,9 @@ const inputStyle = {
   width: "100%",
   height: "2em",
 };
+
+const ErrorMsg = styled.p`
+  color: ${theme.colors.primary[100]};
+  font-family: ${theme.font.family.OpenSans};
+  font-weight: ${theme.font.weight.bold};
+`;
