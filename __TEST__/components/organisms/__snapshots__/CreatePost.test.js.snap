@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sc-bdnylx gUBLOR"
+>
+  <div
+    className="sc-gtssRu gqcPRz"
+  >
+    <div
+      className="sc-dlnjPT ksTBaF"
+      style={
+        Object {
+          "width": "90%",
+        }
+      }
+    >
+      <form
+        className=""
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      >
+        <input
+          autoFocus={true}
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Title"
+          style={
+            Object {
+              "height": "3em",
+              "margin": "1em auto",
+              "marginLeft": "-5px",
+              "width": "100%",
+            }
+          }
+          type="text"
+          value=""
+        />
+      </form>
+      <form
+        className=""
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      >
+        <input
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Insert your message here"
+          style={
+            Object {
+              "height": "3em",
+              "margin": "1em auto",
+              "marginLeft": "-5px",
+              "width": "100%",
+            }
+          }
+          type="textbox"
+          value=""
+        />
+      </form>
+      
+      <div
+        className="sc-hKFyIo glqrF"
+      >
+        <button
+          className="btn btn-primary btn-block"
+          disabled={false}
+          onClick={[Function]}
+          style={
+            Object {
+              "fontFamily": "Open Sans",
+              "fontSize": "20px",
+              "padding": "0 1em",
+            }
+          }
+          type="submit"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
