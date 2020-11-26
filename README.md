@@ -26,8 +26,10 @@ Used some dependencies like:
 
 ## Tests
 
-No test yet!
-
+Coded with JEST, to run:
+    
+    npm test
+    
 ## API
 Consuming from [API](https://wall-app-api-br.herokuapp.com/)
 
