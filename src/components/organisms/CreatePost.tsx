@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { ReactElement } from "react-dom/node_modules/@types/react";
 import styled from "styled-components";
 import theme from "../../theme/nice";
-import Api from "../services/Api";
+import Api from "../../services/Api";
 
 type CreatePostProps = {
   onSubmit: () => Promise<void>;
@@ -25,7 +25,7 @@ const CreatePost = ({ onSubmit, token }: CreatePostProps): ReactElement => {
       token: token.token,
     });
     try {
-      await Api.createPòst({
+      await Api.createPost({
         title,
         body,
         token: token.token,

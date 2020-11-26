@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { ReactElement } from "react-dom/node_modules/@types/react";
 import styled from "styled-components";
 import theme from "../../theme/nice";
-import Api from "../services/Api";
+import Api from "../../services/Api";
 import WallLogo from "../molecules/WallLogo";
 import { MdArrowBack as ArrowBackIcon } from "react-icons/md";
 import { useHistory } from "react-router-dom";

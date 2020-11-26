@@ -36,8 +36,7 @@ export default class Api {
     return response.data;
   };
 
-  static createPòst = async (params: createPostParams) => {
-    console.log(params);
+  static createPost = async (params: createPostParams) => {
     await axios.post(`${API_BASE_URL}/post`, params);
   };
 }

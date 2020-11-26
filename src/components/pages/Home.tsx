@@ -4,7 +4,7 @@ import Loading from "../atoms/Loading";
 import CreatePost from "../organisms/CreatePost";
 import Header from "../organisms/Header";
 import Post from "../organisms/Post";
-import Api from "../services/Api";
+import Api from "../../services/Api";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import theme from "../../theme/nice";
 import styled from "styled-components";

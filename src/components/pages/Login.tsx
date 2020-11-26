@@ -6,7 +6,7 @@ import styled from "styled-components";
 import theme from "../../theme/nice";
 import Loading from "../atoms/Loading";
 import WallLogo from "../molecules/WallLogo";
-import Api from "../services/Api";
+import Api from "../../services/Api";
 
 function Login(): ReactElement {
   const [email, setEmail] = useState("");
