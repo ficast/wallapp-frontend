@@ -10,7 +10,10 @@ type CreatePostProps = {
   token: any;
 };
 
-const CreatePost = ({ onSubmit, token }: CreatePostProps): ReactElement => {
+export default function CreatePost({
+  onSubmit,
+  token,
+}: CreatePostProps): ReactElement {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,9 +89,7 @@ const CreatePost = ({ onSubmit, token }: CreatePostProps): ReactElement => {
       </Box>
     </Container>
   );
-};
-
-export default CreatePost;
+}
 
 const Container = styled.div`
   padding: 1em;

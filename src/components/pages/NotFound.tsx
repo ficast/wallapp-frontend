@@ -4,7 +4,7 @@ import styled from "styled-components";
 import theme from "../../theme/nice";
 import Header from "../organisms/Header";
 
-function NotFound(): ReactElement {
+export default function NotFound(): ReactElement {
   return (
     <>
       <Header />
@@ -28,5 +28,3 @@ const Container = styled.div`
   width: 20em;
   flex-direction: column;
 `;
-
-export default NotFound;

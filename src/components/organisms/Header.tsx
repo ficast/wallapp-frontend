@@ -2,16 +2,15 @@ import React, { ReactElement } from "react";
 import { GiStoneWall as WallIcon } from "react-icons/gi";
 import { MdArrowBack as ArrowBackIcon } from "react-icons/md";
 import { ImExit } from "react-icons/im";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../theme/nice";
-import { RiLogoutBoxFill } from "react-icons/ri";
 
 type HeaderProps = {
   username?: string;
 };
 
-const Header = ({ username }: HeaderProps): ReactElement => {
+export default function Header({ username }: HeaderProps): ReactElement {
   const history = useHistory();
 
   const logout = (): void => {
@@ -47,9 +46,7 @@ const Header = ({ username }: HeaderProps): ReactElement => {
       />
     </Container>
   );
-};
-
-export default Header;
+}
 
 const Container = styled.div`
   display: flex;

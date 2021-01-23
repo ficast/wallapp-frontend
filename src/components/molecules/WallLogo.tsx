@@ -8,7 +8,7 @@ type LogoProps = {
   size: number | string;
 };
 
-function Logo({ size }: LogoProps): ReactElement {
+export default function Logo({ size }: LogoProps): ReactElement {
   return (
     <>
       <WallIcon size={size} color={theme.colors.primary[300]} />
@@ -16,8 +16,6 @@ function Logo({ size }: LogoProps): ReactElement {
     </>
   );
 }
-
-export default Logo;
 
 const Title = styled.h1`
   color: ${theme.colors.primary[300]};

@@ -8,7 +8,7 @@ import Loading from "../atoms/Loading";
 import WallLogo from "../molecules/WallLogo";
 import Api from "../../services/Api";
 
-function Login(): ReactElement {
+export default function Login(): ReactElement {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ function Login(): ReactElement {
         token: response.token,
         name: response.data.name,
         email: response.data.email,
-        id: response.data.id
+        id: response.data.id,
       });
 
       setToken(TOKEN);
@@ -127,13 +127,11 @@ function Login(): ReactElement {
             </Button>
           </Buttons>
         </FormContainer>
-        {error && <ErrorMsg>{error}</ErrorMsg> }
+        {error && <ErrorMsg>{error}</ErrorMsg>}
       </Container>
     </>
   );
 }
-
-export default Login;
 
 const Container = styled.div`
   align-items: center;

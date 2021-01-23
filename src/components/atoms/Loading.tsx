@@ -3,7 +3,7 @@ import Loader from "react-loader-spinner";
 import styled from "styled-components";
 import theme from "../../theme/nice";
 
-function Loading(): ReactElement {
+export default function Loading(): ReactElement {
   return (
     <Container>
       <Loader
@@ -15,8 +15,6 @@ function Loading(): ReactElement {
     </Container>
   );
 }
-
-export default Loading;
 
 const Container = styled.div`
   align-items: center;
