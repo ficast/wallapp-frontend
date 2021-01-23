@@ -8,11 +8,7 @@ type PostProps = {
   author?: string;
 };
 
-const Post = ({
-  title,
-  body,
-  author,
-}: PostProps): ReactElement => {
+export default function Post({ title, body, author }: PostProps): ReactElement {
   return (
     <Container>
       <Title>{title}</Title>
@@ -20,9 +16,7 @@ const Post = ({
       {author && <Author>{author}</Author>}
     </Container>
   );
-};
-
-export default Post;
+}
 
 const Container = styled.div`
   padding: 1em;
