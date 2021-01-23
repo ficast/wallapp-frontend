@@ -9,7 +9,7 @@ import { MdArrowBack as ArrowBackIcon } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import Loading from "../atoms/Loading";
 
-export default function Login(): ReactElement {
+export default function Signup(): ReactElement {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

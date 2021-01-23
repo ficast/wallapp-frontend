@@ -9,7 +9,7 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import theme from "../../theme/nice";
 import styled from "styled-components";
 
-function Home(): ReactElement {
+export default function Home(): ReactElement {
   const [loading, setLoading] = useState(false);
   const [userIsAuth, setUserIsAuth] = useState(false);
   const [page, setPage] = useState(0);
@@ -84,30 +84,25 @@ function Home(): ReactElement {
           />
         )}
       </Container>
-      {posts && posts.map(
-        ({ title, body, author }, index): ReactElement => {
-          return (
-            <Post
-              key={index}
-              title={title}
-              body={body}
-              author={(author && author.name) || "Anonymous"}
-            />
-          );
-        }
-      )}
+      {posts &&
+        posts.map(
+          ({ title, body, author }, index): ReactElement => {
+            return (
+              <Post
+                key={index}
+                title={title}
+                body={body}
+                author={(author && author.name) || "Anonymous"}
+              />
+            );
+          }
+        )}
     </>
   );
 }
-
-export default Home;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const Title = styled.h3`
-  color: ${theme.colors.primary[300]};
 `;
